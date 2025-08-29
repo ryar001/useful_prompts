@@ -1,4 +1,4 @@
-**Note:** This tool works with `GEMINI.md` or Other context file and is triggered by commands starting with `--ai-tracker`.
+**Note:** This tool works with `GEMINI.md` or Other context file and is triggered by commands starting with `:ai-tracker`.
 
 ## Core Function
 
@@ -7,7 +7,7 @@ This utility monitors, summarizes, and documents changes in a software project. 
 ## Workflow
 
 1.  **Prerequisite:** Stage changes using `git add`.
-2.  **Execution:** Run `--ai-tracker update` to generate the summary and commit.
+2.  **Execution:** Run `:ai-tracker --update` to generate the summary and commit.
 3.  **Process:**
     - The tool uses `git diff --staged` to find staged changes.
     - Diffs are sent to an AI for summarization and categorization based on the rules below.
@@ -16,7 +16,8 @@ This utility monitors, summarizes, and documents changes in a software project. 
     - **Commit Message Rules:**
         - The message **must** follow the Conventional Commits specification. The type (`feat`, `fix`, `refactor`, etc.) should correspond to the main category of changes.
         - If changes span multiple categories, the commit `type` should reflect the most significant change (e.g., `feat` > `fix` > `refactor`). The commit body should list all significant changes.
-        - Do not use `(TEXT)` or any text substitution that will be rejected by `git commit`.
+        - Do not use substitutions: $(), <(), or >() as it will be rejected by `git commit`.
+          - parse the summary to remove these before 
     - **Summary Rules:**
         - Ignore spaces, newlines, and other whitespace or non-code changes when generating the summary.
 
@@ -31,4 +32,39 @@ This utility monitors, summarizes, and documents changes in a software project. 
 
 ```bash
 # Analyze staged changes, update UPDATES.md, and commit
---ai-tracker update
+:ai-tracker --update
+
+### Compare against a specific commit or branch:
+
+```bash
+# Compare against a specific commit
+:ai-tracker --update --ref <commit-hash>
+
+# Compare against another branch
+:ai-tracker --update --ref <branch-name>
+```
+
+## `UPDATES.md` Format
+
+Changes are grouped by date, category, and then file.
+
+### Example:
+
+```markdown
+# Project Updates
+
+## 2023-10-27
+
+### What's New
+
+#### `src/features/auth.js`
+
+- Implemented the core logic for the new user authentication flow.
+- Added a new component for the login form.
+
+### Bugfix
+
+#### `src/components/Header.js`
+
+- Fixed a layout issue where the logo would overlap navigation links on smaller screens.
+```

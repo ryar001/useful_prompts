@@ -1,4 +1,20 @@
-## August 29, 2025
+## 2025-08-29
+
+### Documentation Update
+
+#### `code_assistant/commands/ai-tracker.md`
+
+- Updated command prefix from `--ai-tracker` to `//ai-tracker`.
+- Updated command execution example to `//ai-tracker --update`.
+
+### Feature
+
+#### `code_assistant/commands/ai-tracker.md`
+
+- Added new rules for commit messages regarding substitutions.
+- Added sections for comparing against specific commits/branches and `UPDATES.md` format with an example.
+
+## 2025-08-29
 
 ### What's New
 
@@ -20,7 +36,7 @@
 
 # Project Updates
 
-## August 24, 2025
+## 2025-08-24
 
 ### What's New
 

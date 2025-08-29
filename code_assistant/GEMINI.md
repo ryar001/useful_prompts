@@ -76,8 +76,8 @@
 - Before any file edit, make a WIP commit: `git commit -m "WIP: Editing {CURRENT_FILE} for {REASON}"`.
 
 **Special Commands**
-- Commands in the `/commands` directory are invoked with a `//` prefix.
+- Commands in the `/commands` directory are invoked with a `:` prefix.
 - the 'commands' folder will be in the same directory as this file.
-- Example: `//ai-tracker` should search for the file `./commands/ai_tracker.md`.
+- Example: `:ai-tracker` should search for the file `./commands/ai_tracker.md`.
 - Parse arguments for commands (e.g., `--refactor file.py`). If required arguments are missing, inform the user.
 - If no such file exists for a command, inform the user: “No such command found.”
