@@ -1,3 +1,23 @@
+## August 29, 2025
+
+### What's New
+
+#### `code_assistant/GEMINI.md`
+
+- Overhauled and expanded the AI Coding Assistant Instructions, reorganizing existing guidelines and adding new sections on project context, code structure, data handling, quality, error handling, API development, testing, documentation, and AI guardrails. A new "Special Commands" section details how to invoke internal commands.
+
+#### `code_assistant/commands/ai-tracker.md`
+
+- Introduced a new command (`--ai-tracker update`) to monitor, summarize, and document project changes. This utility analyzes staged `git diff` output, generates AI-summarized updates, prepends them to `UPDATES.md`, and creates Conventional Commits.
+
+#### `code_assistant/commands/execute-prp.md`
+
+- Introduced a new command (`--execute-prp`) for executing Prompt Response Protocols, outlining a structured process for loading, planning, implementing, and validating features based on PRP files.
+
+#### `code_assistant/commands/generate-prp.md`
+
+- Introduced a new command (`--generate-prp`) for generating comprehensive Prompt Response Protocols, including guidelines for codebase analysis, external research, context inclusion, implementation blueprints, and validation gates.
+
 # Project Updates
 
 ## August 24, 2025
