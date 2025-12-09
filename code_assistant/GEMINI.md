@@ -4,10 +4,19 @@
 - Prioritize readable, reliable, and testable code. If rules conflict, readability for a mid-level developer is the highest priority.
 
 **Project Context & Workflow**
-- Always read `PLANNING.md` at the start of a new conversation to understand the project's architecture, goals, style, and constraints.
-- Check `TASK.md` before starting a new task. If the task isn’t listed, add it with a brief description and today's date.
+- **Start by check for a `specs/` directory, and specs/{SOME_PROJECE_NAME}/ directory, (1)`plan.md`, `spec.md`, `tasks.md`, use these instead of (2)`PLANNING.md`,`PROJECT_SPECIFIC_INSTRUCTIONS.md`, and `TASK.md` respectively**
+    - if both exist in the project, read the content from (2) files and add if required to the to (1) files.
+- Always read `PLANNING.md` at the start of a new conversation to understand the project's architecture, goals, style, and constraints. Create one at root if not available
+    - if `plan.md` exist in the project, then read `plan.md` instead of `PLANNING.md`
+- Then `README.md` to understand the project's current state and functionality. Create one at root if not available
+- Then check `UPDATES.md` to understand the latest changes and updates. Create one at root if not available
+- Then check `BUGS_LOG.md` to understand the known bugs and their status. Create one at root if not available
+- Then check `PROJECT_SPECIFIC_INSTRUCTIONS.md` to understand the project's specific instructions. Create one at root if not available.
+    - if `specs.md` exist in the project, then read `specs.md` instead of `PROJECT_SPECIFIC_INSTRUCTIONS.md`
+- Check `TASK.md` before starting a new task. If the task isn’t listed, add it with a brief description and today's date. Create one at root if not available
+    - if `tasks.md` exist in the project, then read `tasks.md` instead of `TASK.md`
 - Use consistent naming conventions, file structure, and architecture patterns as described in `PLANNING.md`.
-- Use the `venv_linux` virtual environment for all Python commands. Ensure dependencies from `requirements.txt` or `pyproject.toml` are installed.
+- Use the `.venv` virtual environment for all Python commands. Ensure dependencies from `requirements.txt` or `pyproject.toml` are installed.
 
 **Code Structure & Modularity**
 - Never allow files to exceed 500 lines. Refactor into modules/helpers before hitting the limit.
@@ -39,13 +48,18 @@
 - Log errors with sufficient context to aid in debugging.
 
 **API & Package Development**
+- use uv for all venv and package installation
+- **Only use if required for project**
 - Perform a pre-flight check before implementing API methods:
-    - Verify methods against official API documentation to prevent hallucination.
+    - Verify methods against official API documentation to prevent hallucination,search the web if not provided the documentation or the link to the documentation.
     - Understand the expected inputs and outputs.
     - Implement the method, covering all of its parameters.
 - Search package documentation to confirm expected data structures for return values.
 - Use FastAPI for building APIs.
-- Use SQLAlchemy or SQLModel for ORM.
+- NiceGUI for frontend
+- Use SQLModel for ORM.
+- Use pydantic_ai for llm agent creation
+- Use langgraph for llm agent orchestration
 
 **Testing & Reliability**
 - Place tests in the `/tests` directory, mirroring the main project structure.
@@ -56,11 +70,15 @@
     - At least one failure case.
 - For API-specific testing:
     - Check official package docs for expected results first.
-    - If an API key is required but not provided, mock the test.
-    - If a key is provided or not needed, run a live test.
-    - If a required key is missing, prompt the user.
+    if api key needed:
+        - create a .env.test file and load the api key from there, add sample placeholder for the keys required,eg GEMINI_API_KEY=YOUR_API_KEY if gemini api key is needed
+        - If an API key is required but not provided, mock the test.
+        - If a key is provided or not needed, run a live test.
+        - If a required key is missing, prompt the user to fill out the .env.test file.
 - Always add failure tests to verify error handling.
 - Update tests whenever the underlying logic changes.
+- when a Error or bug is found add it to a file at root called `BUGS_LOG.md`
+  - update the fix tried and the outcome to the bug log
 
 **Documentation & Clarity**
 - Write Google-style docstrings for all functions and classes.
@@ -73,11 +91,8 @@
 - Never hallucinate libraries or functions. Only use verified packages.
 - Always confirm file paths and module names exist before referencing them.
 - Never delete or overwrite code unless explicitly instructed or it is part of a task in `TASK.md`.
-- Before any file edit, make a WIP commit: `git commit -m "WIP: Editing {CURRENT_FILE} for {REASON}"`.
+- always think step by step and list the steps then seek confirmation before proceeding
 
-**Special Commands**
-- Commands in the `/commands` directory are invoked with a `:` prefix.
-- the 'commands' folder will be in the same directory as this file.
-- Example: `:ai-tracker` should search for the file `./commands/ai_tracker.md`.
-- Parse arguments for commands (e.g., `--refactor file.py`). If required arguments are missing, inform the user.
-- If no such file exists for a command, inform the user: “No such command found.”
+**Tools**
+- context7: For fetching/verifying api documentation.
+- ai-tracker: For tracking changes, generating AI summaries, and committing.
